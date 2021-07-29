@@ -7,14 +7,11 @@ if __name__ == "__main__":
   print("## Book Management\n")
 
   while True:
-    sel = input("(load|save|add|delete|search|display|quit) > ")
+    sel = input("(load|add|delete|delete_all|search|display|quit) > ")
     
     if sel == "load":
       filename = input("filename > ")
       BM.load(filename)
-
-    elif sel == "save":
-      BM.save()
     
     elif sel == "add":
       name = input("name > ")
