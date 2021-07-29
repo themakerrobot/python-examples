@@ -4,10 +4,10 @@ from book_ctrl import Book_Mgmt
 if __name__ == "__main__":
   BM = Book_Mgmt()
 
-  print("Book Management")
+  print("## Book Management\n\n")
 
   while True:
-    _type = input("(load|save|add|delete|search|display) > ")
+    _type = input("(load|save|add|delete|search|display|quit) > ")
     
     if _type == "load":
       _file = input("filename > ")
@@ -53,4 +53,3 @@ if __name__ == "__main__":
 
     else:
       print('no such command')
-

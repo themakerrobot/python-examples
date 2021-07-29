@@ -44,12 +44,12 @@ class Book_Mgmt:
   def delete_all(self):
     self.items = []
 
-  def search(self, _info):
+  def search(self, name):
     for item in self.items:
       if item[0] == name:
-        print(item)
+        print(" Book name: {}     Price: {}".format(item[0], item[1]))
 
   def display(self):
     for item in self.items:
-      print(item)
+      print(" Book name: {}     Price: {}".format(item[0], item[1]))
 
