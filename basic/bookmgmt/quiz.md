@@ -57,6 +57,80 @@
     + 기능: 프로그램을 종료합니다.
 
 + 실행결과
-   ```
-   
-   ```
+```
+## 프로그램 실행
+
+pi@raspberrypi:~/hw $ python3 main.py
+## Book Management
+
+(load|add|delete|delete_all|search|display|quit) > display
+
+# BOOK1 추가
+(load|add|delete|delete_all|search|display|quit) > add
+name > BOOK1
+price > 9900
+ y or n > y
+
+# BOOK2 추가
+(load|add|delete|delete_all|search|display|quit) > add
+name > BOOK2
+price > 7500
+ y or n > y
+
+# BOOK3 추가
+(load|add|delete|delete_all|search|display|quit) > add
+name > BOOK3
+price > 12000
+ y or n > y
+
+# 전체 조회
+(load|add|delete|delete_all|search|display|quit) > display
+Name: BOOK1 / Price: 9900
+Name: BOOK2 / Price: 7500
+Name: BOOK3 / Price: 12000
+
+# BOOK2 조회
+(load|add|delete|delete_all|search|display|quit) > search
+name > BOOK2
+ y or n > y 
+Name: BOOK2 / Price: 7500
+
+# BOOK2 삭제
+(load|add|delete|delete_all|search|display|quit) > delete      
+name > BOOK2
+ y or n > y
+ 
+# 전체 조회 (BOOK2는 삭제)
+(load|add|delete|delete_all|search|display|quit) > display
+Name: BOOK1 / Price: 9900
+Name: BOOK3 / Price: 12000
+
+# 프로그램 종료
+(load|add|delete|delete_all|search|display|quit) > quit
+Goodbye
+
+# csv 파일 확인
+pi@raspberrypi:~/hw $ cat book.csv 
+BOOK1,9900
+BOOK3,12000
+
+# 프로그램 재실행
+pi@raspberrypi:~/hw $ python3 main.py 
+## Book Management
+
+# 정상적으로 book.csv를 불러오는지 확인
+(load|add|delete|delete_all|search|display|quit) > display
+Name: BOOK1 / Price: 9900
+Name: BOOK3 / Price: 12000
+
+# 전체 삭제
+(load|add|delete|delete_all|search|display|quit) > delete_all
+ y or n > y
+
+# 전체 조회
+(load|add|delete|delete_all|search|display|quit) > display
+
+# 프로그램 종료
+(load|add|delete|delete_all|search|display|quit) > quit
+Goodbye
+```
