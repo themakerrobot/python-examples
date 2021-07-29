@@ -5,7 +5,24 @@
 
 + 클래스
   - Book_Info
+    + 멤버변수
+      - name: 책 이름
+      - price: 책 가격
+    + 멤버함수
+      - set: name과 price를 입력
+      - get: name과 price를 반환
   - Book_Mgmt
+    + 멤버변수
+      - filename: 책 정보를 저장하는 csv 파일
+      - items: 책 정보를 저장하는 변수
+    + 멤버함수
+      - save: csv 파일로 저장
+      - load: csv 파일 불러오기
+      - add: 책 추가
+      - delete: 책 삭제
+      - delete_all: 책 전체 삭제
+      - search: 책 찾기
+      - display: 책 전체 보기
 
 + Command List
   - load
