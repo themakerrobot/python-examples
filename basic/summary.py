@@ -4,26 +4,22 @@ print('## Python Summary')
 #''' CH1 - START
 print('\n\nChapter 1')
 
-print('[1] Hello Python')
+print('Hello Python')
 
-message = '[2] Hello Python'
-print(message)
+msg = 'Hello Python'
+print(msg)
 
-number = '[3]'
-message = 'Hello Python'
-total_message = number + ' ' + message
-print(total_message)
+msg1 = 'PI'
+msg2 = 'is'
+msg3 = 3.14
+msgs = msg1 + ' ' + msg2 + ' ' + str(msg3)
+print(msgs)
 
 lists = ['aaa', 'bbb', 'ccc']
-print('[4] lists: ' + str(lists))
+print(lists)
 
-print('[5] User input')
-name = input('What is your name? > ')
-print('Hi ' + name)
-
-print('[6] User input(numerical input)')
-age = input ('How old are you? > ')
-print(' ' + age + ', type: ' + str(type(age)))
+data = input('Input String, Numerical value ... > ')
+print(data, type(data))
 
 # CH1 - END'''
 
@@ -31,41 +27,40 @@ print(' ' + age + ', type: ' + str(type(age)))
 #''' CH2 - START
 print('\n\nChapter 2')
 
-devices = ['airplane', 'car', 'robot']
+items = ['aaa', 'bbb', 'ccc']
 
-first_device = devices[0]
-last_device = devices[-1]
-print('[1] first_device: ' + first_device + ' last_device: ' + last_device)
+item_first = items[0]
+item_last = items[-1]
+print(item_first, item_last)
 
-print('[2] display devices')
-for dev in devices:
-  print(' ' + dev)
+for item in items:
+  print(item)
 
 colors = []
 colors.append('red')
 colors.append('green')
 colors.append('blue')
-print('[3] colors: ' + str(colors))
+print(colors)
 
 numbers = []
 for x in range(1, 11):
   numbers.append(x**2)
-print('[4] numbers: ' + str(numbers))
+print(numbers)
 
 numbers = [x**2 for x in range(1, 11)]
-print('[5] numbers: ' + str(numbers))
+print(numbers)
 
 items = ['one', 'two', 'three', 'four']
 one_two = items[:2]
-print('[6] one_two : ' + str(one_two))
+print(one_two)
 
 copied_items = items[:]
-print('[7] copied_items: ' + str(copied_items))
+print(copied_items)
 
 tuple_items = (100, 200)
 #tuple_items = (1, 2) # O --> Overwrite an entire tuple
 #tuple_items[0] = 200 # X --> Can't change the individual item in a tuple
-print('[8] tuple_items: ' + str(tuple_items))
+print(tuple_items)
 
 # CH2 - END'''
 
@@ -74,48 +69,37 @@ print('[8] tuple_items: ' + str(tuple_items))
 print('\n\nChapter 3')
 
 tom = {'age': 15, 'gender':'man'}
-print('[1] Tom\'s age is ' + str(tom['age'])  + ', gender is ' + tom['gender'])
+print(tom['age'], tom['gender'])
 
 tom['glasses'] = "none"
-print('[2] Tom\'s glasses is ' + tom['glasses'])
+print(tom)
 
-print('[3] display key and value')
 for key, item in tom.items():
-  print(' ' + key + ', ' + str(item))
+  print(key, item)
 
-print('[4] display key')
 for key in tom.keys():
-  print(' ' + key)
+  print(key)
 
-print('[5] display values')
 for value in tom.values():
-  print(' ' + str(value))
+  print(value)
 
 # CH3 - END'''
-
 
 """ CH4 if 조건문과 while 반복문 (if statements and while loops) """
 #''' CH4 - START
 print('\n\nChapter 4')
 
-print('[1] Conditional Test')
 x = 10
-print(' == : ' + x == 10)
-print(' != : ' + x != 10)
-print(' >  : ' + x >  5)
-print(' >= : ' + x >= 10)
-print(' <  : ' + x < 5)
-print(' <= : ' + x <= 10)
+print('10 == 10 : ', x == 10)
+print('10 != 10 : ', x != 10)
+print('10 >   5 : ', x  >  5)
+print('10 >= 10 : ', x >= 10)
+print('10 <   5 : ', x  <  5)
+print('10 <= 10 : ', x <= 10)
 
-print('[2] Conditional Test with lists')
 basket = ['apple', 'banana', 'grape']
-print(' Q: Is there an apple in lists ? A: ' + 'apple' in basket)
-print(' Q: Is there an melon in lists ? A: ' + 'melon' in basket)
-
-print('[3] boolean values')
-enable = True
-
-
+print('apple' in basket)
+print('melon' in basket)
 
 # CH4 - END'''
 
