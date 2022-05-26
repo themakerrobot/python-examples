@@ -1,0 +1,13 @@
+COMMON: &common
+  STT_PORT: 10001
+  STT_GPU: 0
+  TTS_PORT: 10002
+  TTS_GPU: 1
+
+STG: &stg
+  <<: *common
+  DEBUG: True
+
+OPS: &ops
+  <<: *common
+  DEBUG: False
