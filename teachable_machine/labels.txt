@@ -1,5 +1,4 @@
-0 Class 1
-1 Class 2
-2 Class 3
-3 Class 4
-4 Class 5
+0 dog
+1 cat
+2 lion
+3 elephant

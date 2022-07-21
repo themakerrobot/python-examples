@@ -40,7 +40,7 @@ Functions:
     """
     with open(label_path, 'r') as f:
       c = f.readlines()
-      class_names = [c[i].split(maxsplit=1)[1] for i in range(len(c)-1)]
+      class_names = [item.split(maxsplit=1)[1].strip('\n') for item in c]
 
     # Load TFLite model and allocate tensors
     self.interpreter = Interpreter(model_path=model_path)
@@ -90,12 +90,12 @@ Functions:
     # Obtain results and map them to the classes
     preds = self.interpreter.get_tensor(self.output_details[0]['index'])
     preds = np.squeeze(preds)
-    return preds, self.class_names[np.argmax(preds)]
+    return self.class_names[np.argmax(preds)], preds
 
 if __name__ == "__main__":
   s = time.time()
   tk = TeachableMachine()
-  tk.load("../../model_unquant.tflite", "labels.txt")
+  tk.load("./model_unquant.tflite", "./labels.txt")
   cap = cv2.VideoCapture(0)
   print("Load:", time.time()-s)
   while True:
