@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, Response
 from teachable import TeachableMachine
 import cv2
+
 app = Flask(__name__)
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -16,7 +17,7 @@ def index():
 
 def MyFunction(img):
   res, raw = o.predict(img)
-  cv2.putText(img, res, (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+  cv2.putText(img, "{} : {:.2f}%".format(res, raw.max()*100), (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
   return img
 
 def gen():
