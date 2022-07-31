@@ -17,7 +17,10 @@ def index():
 
 def MyFunction(img):
   res, raw = o.predict(img)
-  cv2.putText(img, "{} : {:.2f}%".format(res, raw.max()*100), (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+  cv2.putText(img, "{} : {:.2f}%".format(res, raw.max()*100), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
+
+  for i in range(len(o.class_names)):
+    cv2.putText(img, "{}:{:.2f}%".format(o.class_names[i], raw[i]*100), (50, 50+((i+1)*20)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
   return img
 
 def gen():
