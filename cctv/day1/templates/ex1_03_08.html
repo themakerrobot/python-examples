@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>ex1_03_08</title>
+    <script src="../static/socket.io.js"></script>
+    <script>
+      window.onload = () =>{
+        const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
+        const result = document.getElementById("result");
+        const input_text = document.getElementById("input_text");
+   
+        input_text.addEventListener('keypress', (evt) => {
+          if (evt.keyCode == 13) // Enter
+            socket.emit("message", input_text.value)
+        });
+
+        socket.on("message", function(data){
+          result.textContent = data;
+        });
+      }
+  </script>
+  </head>
+  <body>
+    <h1>This is ex1_03_08 project.</h1>
+    <input type="text" id="input_text" /><br>
+    <span id="result"></span>
+  </body>
+ </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>ex1_03_09</title>
+    <script src="../static/socket.io.js"></script>
+    <script>
+      window.onload = () =>{
+        const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
+        const image = document.getElementById("image");
+   
+        socket.emit("image");
+        socket.on("image", function(data){
+          image.src = data;
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>This is ex1_03_09 project.</h1>
+    <img id="image" />
+  </body>
+ </html>
