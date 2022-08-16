@@ -19,7 +19,7 @@ socketio = SocketManager(app=app)
 
 @app.get('/', response_class=HTMLResponse)
 async def main(request: Request):
-  return templates.TemplateResponse("ex1_03_14.html", {"request":request})
+  return templates.TemplateResponse("ex2_02.html", {"request":request})
 
 @app.sio.on('train')
 async def f_train(sid, d=None):
@@ -72,4 +72,4 @@ async def startup_event():
   Thread(name='loop', target=loop, args=(), daemon=True).start()
 
 if __name__ == '__main__':
-  uvicorn.run("ex1_03_14:app", host="0.0.0.0", port=8080)
+  uvicorn.run("ex2_02:app", host="0.0.0.0", port=8080)
