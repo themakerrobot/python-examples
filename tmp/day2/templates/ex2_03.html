@@ -5,28 +5,28 @@
     <script>
       window.onload = () =>{
         const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
-        const image = document.getElementById("image");
-        const res = document.getElementById("res");
+        const stream = document.getElementById("stream");
+        const result = document.getElementById("result");
         const trainbt= document.getElementById("train"); 
         const name= document.getElementById("name"); 
 
 	trainbt.addEventListener("click", function(){
           socket.emit("train", name.value);
 	});
-        socket.on("image", function(data){
-          image.src = data;
+        socket.on("stream", function(data){
+          stream.src = data;
         });
-        socket.on("res", function(data){
-          res.src = data;
+        socket.on("result", function(data){
+          result.src = data;
         });
       }
     </script>
   </head>
   <body>
-    <h1>This is ex2_02 project.</h1>
-    <img id="image" />
-    <img id="res" />
+    <h1>This is ex2_03 project.</h1>
     <input type="text" id="name" />
-    <button id='train'>학습</button>
+    <button id='train'>학습</button><br>
+    <img id="stream" /><br>
+    <img id="result" />
   </body>
  </html>
