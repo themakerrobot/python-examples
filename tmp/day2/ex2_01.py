@@ -43,7 +43,7 @@ def detect_face(img):
 # putText(img, text, points, size, colors, tickness)
 def detect_object(img):
   items = detect.detect_object(img)
-  
+
   for item in items:
     x1, y1, x2, y2 = item['position']
     colors = (100, 100, 200)

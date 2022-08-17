@@ -17,7 +17,7 @@ _, img = cap.read()
 text = "가나다라마바사"
 font_size = 50
 points = (100, 100)
-colors = (0,0,255)
+colors = (0,0,255) # BGR
 
 img = putText(img, points, text, font_size, colors)
 
