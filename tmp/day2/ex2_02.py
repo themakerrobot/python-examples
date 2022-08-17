@@ -34,15 +34,16 @@ def detect_face(img):
     camera.rectangle(img, (cx, cy), (cx, cy), (0,0,255), 10)
     camera.rectangle(img, (270,190), (370,290), (200,200,200), 1)
     prio_x, prio_y = pos_x, pos_y
+
     if cx < 270 and pos_x < 40:
       pos_x += 1
     elif cx > 370 and pos_x > -40:
       pos_x -= 1
     
-    if cy < 190 and pos_y < 15:
-      pos_y -= 1
-    elif cy > 290 and pos_y > -15:
+    if cy > 290 and pos_y < 15:
       pos_y += 1
+    elif cy < 190 and pos_y > -15:
+      pos_y -= 1
 
     if prio_x != pos_x or prio_y != pos_y:
       motion.set_motors([0,0,-70,0, pos_x, pos_y, 0,0,70,0])
