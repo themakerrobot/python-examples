@@ -39,35 +39,38 @@
     </script>
     <style>
       button {
+        margin: 0.2em auto;
         font-weight: bold;
         background: #A0F0A0;
-        width:100%;
-        border: none;
-        border-radius: 20px;
+        width: 100%;
+	height: 20px;
+	border: none;
+        border-radius: 10px;
       }
       button:hover {
-        box-shadow: inset 0 0 0 2em rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 0 0 2em rgba(0, 0, 0, 0.05);
       }
       span {
         font-weight: bold;
       }
       img {
-        width:100%;
+        padding: 0.3em;
+        width: 100%;
         border-radius: 10px;
       }
     </style>
   </head>
   <body>
-    <h1>Smart CCTV</h1>
+    <h1>Smart CCTV using PIBO</h1>
     <div>
       <img id="stream" />
       <button id='up'>UP</button>
       
-      <div style="float:left;width:50%">
+      <div style="float:left;width:49%">
         <button id='left'>LEFT</button>
       </div>
       
-      <div style="float:right;width:50%">
+      <div style="float:right;width:49%">
         <button id='right'>RIGHT</button>
       </div>
       
