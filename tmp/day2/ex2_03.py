@@ -39,11 +39,11 @@ async def f_train(sid, d=None):
 def recognize(frame):
   items = face.detect(frame)
 
-  if len(items) > 0:
-    x, y, w, h = items[0]
+  for item in items:
+    x, y, w, h = item
     colors = (200,100,0)
     camera.rectangle(frame, (x, y), (x+w, y+h), colors, 2) # rectangle(img, p1, p2, colors, tickness)
-    res = face.recognize(frame, items[0])
+    res = face.recognize(frame, item)
     if res == False:
       res = {'name':'Guest', 'score':0}
     camera.putText(frame, res["name"], (x-10, y-10), 0.6, colors, 2)

@@ -63,10 +63,10 @@ def classify_from_tm(img):
 
 
 def my_function(img):
-  return basic(img)  # 1
+  #return basic(img)  # 1
   #return detect_face(img) # 2
   #return detect_object(img) # 3
-  #return classify_from_tm(img) # 4
+  return classify_from_tm(img) # 4
 
 def loop():
   while True:
