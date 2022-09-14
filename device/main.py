@@ -16,47 +16,41 @@ def send_raw(raw):
   data = ""
   while True:
     ch = dev.read().decode()
-    if ch == '#' or ch == '\r' or ch == '\n':
+    if ch in ['#','\r','\n']:
       continue
     if ch == '!':
       break
     data += ch
   return data
 
-def decode(pkt):
-  global pir, touch, dc, button, battery
-  opcode, data = [item for item in pkt.split(":")] 
-
-  if opcode == "40":
-    pir, touch, dc, button, _, _ = [item for item in data.split("-")]
-  if opcode == "15":
-    battery = data
-
 def device_loop():
-  global q
+  global q, system_data, battery_data
   system_check_time = time.time()
   battery_check_time = time.time()
 
   while True:
     if time.time() - system_check_time > 1:
-      decode(send_raw("#40:!"))
+      system_data = send_raw("#40:!")
       system_check_time = time.time()
     elif time.time() - battery_check_time > 10:
-      decode(send_raw("#15:!"))
+      battery_data = send_raw("#15:!")
       battery_check_time = time.time()
     elif q.qsize() > 0:
       data = send_raw(q.get())
     time.sleep(0.1)
 
-@app.get("/device/{opcode}/{data}")
-async def f_device(opcode, data):
+@app.get("/device/{pkt}")
+async def f_device(pkt):
   global q
-  q.put(f"#{opcode}:{data}!")
-  return {"result":"ok", "data":{"opcode":opcode, "data":data}}
-
-@app.get("/system")
-async def f_system():
-  return {"result":"ok", "data":{"pir":pir, "touch":touch, "dc":dc, "button":button, "battery":battery}}
+  opcode, data = [item for item in pkt.split(":")] 
+  
+  if opcode == "40":
+    return {"result":"ok", "data":system_data}
+  elif opcode == "15":
+    return {"result":"ok", "data":battery_data}
+  else:
+    q.put(f"#{pkt}!")
+    return {"result":"ok", "data":"ok"}
 
 @app.get("/servo/{data}")
 async def f_servo(data):
@@ -65,12 +59,10 @@ async def f_servo(data):
 
 @app.on_event("startup")
 async def startup_event():
-  global dev, q, pir, touch, dc, button, battery
-  pir = ""
-  touch = ""
-  dc = ""
-  button = ""
-  battery = ""
+  global dev, q, system_data, battery_data
+  system_data = "------"
+  battery_data = "0%"
+
   dev = serial.Serial(port="/dev/ttyS0", baudrate=9600)
   q = Queue()
   Thread(name='device_loop', target=device_loop, args=(), daemon=True).start()
