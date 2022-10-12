@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart CCTV</title>
+    <script src="../static/socket.io.js"></script>
+    <script>
+      window.onload = () =>{
+        const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
+        const position = document.getElementById("position");
+        const stream = document.getElementById("stream");
+        const bup = document.getElementById("up");
+        const bdown = document.getElementById("down");
+        const bleft = document.getElementById("left");
+        const bright = document.getElementById("right");
+ 
+        bup.addEventListener("click", () => {
+	  socket.emit("control", "up");
+	});
+        bdown.addEventListener("click", () => {
+	  socket.emit("control", "down");
+	});
+        bleft.addEventListener("click", () => {
+	  socket.emit("control", "left");
+	});
+        bright.addEventListener("click", () => {
+	  socket.emit("control", "right");
+	});
+
+        socket.on("stream", function(data){
+          stream.src = data;
+        });
+
+        socket.emit("control")
+        socket.on("position", function(data){
+          position.textContent = "Camera Position : " + data["x"] + "," + data["y"]
+	});
+      }
+    </script>
+    <style>
+      button {
+        margin: 0.2em auto;
+        font-weight: bold;
+        background: #A0F0A0;
+        width: 100%;
+	height: 20px;
+	border: none;
+        border-radius: 10px;
+      }
+      button:hover {
+	box-shadow: inset 0 0 0 2em rgba(0, 0, 0, 0.05);
+      }
+      span {
+        font-weight: bold;
+      }
+      img {
+        padding: 0.3em;
+        width: 100%;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Smart CCTV using PIBO</h1>
+    <div>
+      <img id="stream" />
+      <button id='up'>UP</button>
+      
+      <div style="float:left;width:49%">
+        <button id='left'>LEFT</button>
+      </div>
+      
+      <div style="float:right;width:49%">
+        <button id='right'>RIGHT</button>
+      </div>
+      
+      <button id='down'>DOWN</button>
+      <span id="position"></span>
+    </div>
+  </body>
+ </html>

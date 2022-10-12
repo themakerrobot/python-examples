@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <script src="../static/socket.io.js"></script>
+    <script>
+      window.onload = () =>{
+        const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
+        const stream = document.getElementById("stream");
+        const result = document.getElementById("result");
+        const trainbt= document.getElementById("train"); 
+        const name= document.getElementById("name"); 
+
+	trainbt.addEventListener("click", function(){
+          socket.emit("train", name.value);
+	});
+        socket.on("stream", function(data){
+          stream.src = data;
+        });
+        socket.on("result", function(data){
+          result.src = data;
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>This is ex2_03 project.</h1>
+    <input type="text" id="name" />
+    <button id='train'>학습</button><br>
+    <img id="stream" /><br>
+    <img id="result" />
+  </body>
+ </html>
