@@ -10,9 +10,9 @@
         const trainbt= document.getElementById("train"); 
         const name= document.getElementById("name"); 
 
-	trainbt.addEventListener("click", function(){
+        trainbt.addEventListener("click", function(){
           socket.emit("train", name.value);
-	});
+        });
         socket.on("stream", function(data){
           stream.src = data;
         });
