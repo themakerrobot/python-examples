@@ -1,8 +1,8 @@
 - day1: 로봇 이해하기 및 fastapi 와 socketio 를 이용한 통신 구축하기
   + examples1.py: FastAPI 기본
     - 기본 서버 / Routing
-    - get 방식 parmeter 
-    - HTML Response
+    - get 방식 parameter 전송
+    - HTML Template 사용
     - mini proj: 간단한 웹 기반 시계 만들기(mywatch.py)
   + examples2.py: FastAPI 이미지 활용
     - FastAPI 의 Response 를 이용한 이미지 전송
