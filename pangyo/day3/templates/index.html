@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>RoBoCon</title>
     <script src="../static/socket.io.js"></script>
     <script>
       window.onload = () =>{
@@ -58,7 +58,7 @@
         socket.on("device", function(dlst){
           let tmp = "";
           for(key in dlst){
-            tmp += key.toUpperCase() + ": <b>" + dlst[key] + "</b>, "; 
+            tmp += key.toLowerCase() + ": <b>" + dlst[key] + "</b><br>"; 
           }
           tmp = tmp.slice(0, tmp.length-2);
           d_info.innerHTML = "<i>" + tmp + "</i>";
@@ -69,7 +69,7 @@
         const v_result = document.getElementById('v_result');
         socket.on("vision", function(res){
           v_image.src = res['image'];
-          v_result.innerHTML = res['result'].join("<br>")
+          v_result.innerHTML = res['result'].join(" ")
         });
 
       }
@@ -78,81 +78,100 @@
       body {
         background-color:white;
       }
-
+      table {
+        margin-left:auto;
+        margin-right:auto;
+      }
       td {
-        width:160px;
+        width:120px;
         text-align: center;
       }
-
-      button {
-        border: 1px solid black;
-        width:100%;
-        background: whitesmoke;
-        border-radius: 5px;
+      table,td {
+        border:3px solid black;
+        border-radius: 10px;
       }
-
+      button {
+        /*border: 1px solid black;*/
+        border:none;
+        border-radius: 12px;
+        width:100%;
+        font-weight: bolder;
+      }
       button:hover {
 	      box-shadow: inset 0 0 0 2em rgba(0, 0, 0, 0.05);
       }
-
       input {
-        width:95%;
+        width:97%;
+        height:100%;
+        border:none;
+        border-radius: 12px;
       }
-
       img {
-        width:320px;
-        height:240px;
-        border-radius: 5px;
+        width:100%;
+        border:none;
+        border-radius: 12px;
+      }
+      .symbol {
+        font-size:x-large;
+      }
+      .topic {
+        font-weight: bolder;
+        background-color: beige;
       }
     </style>
   </head>
   <body>
-    <h2>RoBoTCoN</h2>
-
     <table>
-      <tr><td colspan="3"><h3>Device</h3></td></tr>
       <tr>
-        <td colspan="3"><span id="d_info"></span></td>
+        <td class="topic" colspan="3">Device</td>
       </tr>
       <tr>
-        <td>OLED</td>
+        <td colspan="3"><span class="info" id="d_info"></span></td>
+      </tr>
+      <tr>
+        <td class="topic">oled</td>
         <td colspan="2"><input type="text" id="d_oled_in" placeholder="Hello World" /></td>
       </tr>
       <tr>
-        <td>LED</td>
+        <td class="topic">led</td>
         <td colspan="2"><input type="text" id="d_led_in" placeholder="0,0,0,0,0,0" /></td>
       </tr>
-
-      <tr><td colspan="3"><h3>Motion</h3></td></tr>
       <tr>
-        <td colspan="3"><button id="m_forward_bt">Forward</button></td>
+        <td class="topic" colspan="3">Motion</td>
       </tr>
       <tr>
-        <td><button id="m_left_bt">Left</button></td>
-        <td><button id="m_stop_bt">Stop</button></td>
-        <td><button id="m_right_bt">Right</button></td>
+        <td colspan="3"><button id="m_forward_bt"><span class="symbol">▲</span></button></td>
       </tr>
       <tr>
-        <td colspan="3"><button id="m_backward_bt">Backward</button></td>
-      </tr>
-
-      <tr><td colspan="3"><h3>Vision</h3><span id="mh_value"></span></td></tr>
-      <tr>
-        <td colspan="2"><img id="v_image"></img></td>
-        <td><span id="v_result"></span></td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td><button id="mh_up_bt">▲</button></td>
-        <td></td>
+        <td><button id="m_left_bt"><span class="symbol">◄</span></button></td>
+        <td><button id="m_stop_bt"><span class="symbol">◼</span></button></td>
+        <td><button id="m_right_bt"><span class="symbol">►</span></button></td>
       </tr>
       <tr>
-        <td><button id="mh_left_bt">◀</button></td>
-        <td><button id="mh_down_bt">▼</button></td>
-        <td><button id="mh_right_bt">▶</button></td>
+        <td colspan="3"><button id="m_backward_bt"><span class="symbol">▼</span></button></td>
       </tr>
-
+      <tr>
+        <td class="topic" colspan="3">Vision</td>
+      </tr>
+      <tr>
+        <td colspan="3"><img id="v_image"></img></td>
+      </tr>
+      <tr>
+        <td class="topic">position</td>
+        <td colspan="2"><span id="mh_value"></span></td>
+      </tr>
+      <tr>
+        <td class="topic">detect:</td>
+        <td colspan="2"><span id="v_result"></span></td>
+      </tr>
+      <tr>
+        <td colspan="3"><button id="mh_up_bt"><span class="symbol">⇧</span></button></td>
+      </tr>
+      <tr>
+        <td><button id="mh_left_bt"><span class="symbol">⇦</span></button></td>
+        <td><button id="mh_down_bt"><span class="symbol">⇩</span></button></td>
+        <td><button id="mh_right_bt"><span class="symbol">⇨</span></button></td>
+      </tr>
     </table>
   </body>
  </html>
