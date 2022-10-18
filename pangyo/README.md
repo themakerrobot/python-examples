@@ -48,5 +48,5 @@
 - day3: 웹 기반 로봇 컨트롤러 완성하기
   + 로봇 컨트롤러 구상하기
   + vision, device, motion, oled 기능을 웹과 연동하기
-  + Thread, Queue를 이용한 로봇 컨트롤러 시스템 완성하기
+  + Thread를 이용한 로봇 컨트롤러 시스템 완성하기
   + HTML 완성하기
