@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>example3</title>
+    <script src="../static/socket.io.js"></script>
+    <script>
+      window.onload = () =>{
+        const socket = io('ws://' + window.location.host, {path:'/ws/socket.io'});
+
+        // Only receive
+        const time = document.getElementById("time");
+        socket.emit("time");
+        socket.on("time", function(data){
+          time.textContent = data;
+        });
+        //setInterval( function(){
+        //  socket.emit("time");}
+        //), 1000);
+
+        // Send & Receive
+        const resp_text = document.getElementById("resp_text");
+        const req_text = document.getElementById("req_text");
+        req_text.addEventListener('keypress', (evt) => {
+          if (evt.keyCode == 13) // Enter
+            socket.emit("message", req_text.value)
+        });
+
+        socket.on("message", function(data){
+          resp_text.textContent = data;
+        });
+
+        // Image
+        socket.emit("image");
+        socket.on("image", function(data){
+          image.src = data;
+        });
+        //setInterval( function(){
+        //  socket.emit("image");}
+        //), 1000);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>This is example3 project.</h1>
+   
+    <h3>only receive</h3>
+    <span id="time"></span>
+    
+    <h3>send & receive</h3>
+    Send: <input type="text" id="req_text" /><br>
+    Recv: <span id="resp_text"></span>
+    
+    <h3>image</h3>
+    <img id="image" />
+  </body>
+ </html>
