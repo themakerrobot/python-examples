@@ -36,8 +36,7 @@ def detect_object():
   print("Object:", res)
   res = detect.detect_qr(img.copy())
   print("QR:", res)
-  res = detect.detect_pose(img.copy())
-  print("Pose:", res)
+
 
 def detect_from_tm():
   tm = TeachableMachine()
