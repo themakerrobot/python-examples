@@ -34,12 +34,12 @@ def detect_object():
 
   items = detect.detect_object(img)
   print("Object:", items)
-
+  
   for item in items:
     x1, y1, x2, y2 = item["position"]
     camera.rectangle(img, (x1, y1), (x2, y2), (255,0,0),1)
     camera.putText(img, item["name"], (x1-10, y1-10), 0.6, (0,255,0), 1)
-
+  
   # camera.imwrite("result.jpg", img)
 
 def detect_from_tm():
