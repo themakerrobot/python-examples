@@ -51,7 +51,7 @@ def detect_from_tm():
 
 if __name__ == "__main__":
   camera = Camera()
-  #run_camera()
+  run_camera()
   #detect_face()
   #detect_object()
-  detect_from_tm()
+  #detect_from_tm()
