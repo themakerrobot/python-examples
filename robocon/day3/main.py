@@ -53,7 +53,7 @@ async def set_motor(sid):
 
 # device
 def dloop():
-  global queue,g_system
+  global queue,g_system,device
   system_check_time = time.time()
   battery_check_time = time.time()
 
@@ -64,7 +64,6 @@ def dloop():
       g_system["touch"] = "on" if tmp[1] == "touch" else "off"
       g_system["plug"] = tmp[2] if tmp[2] != "" else g_system["plug"]
       g_system["button"] = "on" if tmp[3] == "on" else "off"
-
       asyncio.run(app.sio.emit("device", g_system))
       system_check_time = time.time()
     elif time.time() - battery_check_time > 10:
@@ -72,8 +71,6 @@ def dloop():
       battery_check_time = time.time()
     elif queue.qsize() > 0:
       device.send_raw(queue.get())
-    else:
-      pass
     time.sleep(0.1)
 
 @app.sio.on('set_oled')
@@ -87,7 +84,6 @@ async def set_oled(sid, text=""):
 async def set_led(sid, value="0,0,0,0,0,0"):
   global queue
   queue.put(f"#23:{value}!")
-
 
 # vision
 def detect_items(img):
@@ -111,7 +107,6 @@ def vloop():
     base64_string = base64.b64encode(img).decode('utf-8')
     asyncio.run(app.sio.emit("vision", {"result":result ,"image":"data:image/jpeg;charset=utf-8;base64,"+base64_string}))
     time.sleep(1)
-
 
 @app.on_event("startup")
 async def startup_event():
