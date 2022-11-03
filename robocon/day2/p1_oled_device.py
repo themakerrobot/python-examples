@@ -23,7 +23,7 @@ def system_check():
 if __name__ == "__main__":
   oled = Oled()
   device = Device()
-  
+  device.send_raw("#30:on!")
   oled.set_font(size=15)
 
   while True:

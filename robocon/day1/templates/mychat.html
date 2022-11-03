@@ -16,14 +16,14 @@
         });
 
         let id_value = null;
-	const id = document.getElementById("id");
-	socket.emit("id");
-	socket.on("id", function(data){
+        const id = document.getElementById("id");
+        socket.emit("id");
+        socket.on("id", function(data){
           if (id_value === null){
-	    id_value = data;
-	    id.textContent = id_value;
-	  }
-	});
+            id_value = data;
+            id.textContent = id_value;
+          }
+        });
         socket.on("message", function(data){
           dialog.innerHTML = data.join("<br>");
         });

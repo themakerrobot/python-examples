@@ -32,12 +32,15 @@ def detect_object():
 
   img = camera.read()
 
-  res = detect.detect_object(img.copy())
-  print("Object:", res)
-  res = detect.detect_qr(img.copy())
-  print("QR:", res)
-  res = detect.detect_pose(img.copy())
-  print("Pose:", res)
+  items = detect.detect_object(img)
+  print("Object:", items)
+
+  for item in items:
+    x1, y1, x2, y2 = item["position"]
+    camera.rectangle(img, (x1, y1), (x2, y2), (255,0,0),1)
+    camera.putText(img, item["name"], (x1-10, y1-10), 0.6, (0,255,0), 1)
+
+  # camera.imwrite("result.jpg", img)
 
 def detect_from_tm():
   tm = TeachableMachine()
@@ -51,7 +54,7 @@ def detect_from_tm():
 
 if __name__ == "__main__":
   camera = Camera()
-  #run_camera()
-  #detect_face()
-  #detect_object()
-  detect_from_tm()
+  # run_camera()
+  # detect_face()
+  # detect_object()
+  # detect_from_tm()

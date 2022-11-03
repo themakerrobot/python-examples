@@ -24,6 +24,6 @@ def figure():
 
 if __name__ == "__main__":
   oled = Oled()
-  #text()
+  text()
   #image()
   #figure()
