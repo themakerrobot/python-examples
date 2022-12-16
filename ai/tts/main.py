@@ -26,11 +26,11 @@ def get_tts(args):
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument('--string', help='Text for TTS', required=True)
+  parser.add_argument('--play', help='play', action='store_true')
   parser.add_argument('--voice', help='Voice_mode (main|boy|girl...)', default='main')
   parser.add_argument('--lang', help='Language (ko|en)', choices =['ko', 'en'],  default='ko')
   parser.add_argument('--filename', help='filename', default='tts.mp3')
   parser.add_argument('--url', help='Url', default='https://oe-sapi.circul.us/v1/tts')
-  parser.add_argument('--play', help='play', action='store_true')
   args = parser.parse_args()
 
   get_tts(args)
