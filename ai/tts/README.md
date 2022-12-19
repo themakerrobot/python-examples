@@ -9,9 +9,10 @@ $ tts_gen [--opt1 "value1" --opt2 "value2" ....]
   - filename: 저장할 파일 경로/이름 - (default: tts.mp)
   - url: 호스트 주소 - (default: https://oe-sapi.circul.us/v1/tts)
 
-+ 실행
++ 실행 
+<pre>
 $ tts_gen --string "안녕하세요." --play --voice "main" --lang "ko" --filename "test.mp3" --url "https://oe-sapi.circul.us/v1/tts"
 $ Ok
-
+</pre>
 + bin
 pyinstaller tts_gen.py -F 
