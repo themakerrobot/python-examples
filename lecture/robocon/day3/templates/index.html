@@ -54,6 +54,15 @@
             d_led_in.value ="";
           }
         });
+        
+        // speech
+        const d_tts = document.getElementById("d_tts");
+        d_tts.addEventListener("keypress", function(evt){
+          if (evt.keyCode == 13){
+            socket.emit("tts",d_tts.value);
+            d_tts.value = "";
+          }
+        });
 
         socket.on("device", function(dlst){
           let tmp = "";
@@ -75,103 +84,166 @@
       }
     </script>
     <style>
+      /* 기본 스타일 초기화 및 폰트 설정 */
       body {
-        background-color:white;
+          font-family: sans-serif;
+          background-color: #f0f0f0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
       }
-      table {
-        margin-left:auto;
-        margin-right:auto;
+
+      /* 전체 컨트롤 패널 컨테이너 */
+      .control-panel {
+          width: 320px;
+          background-color: #ffffff;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          padding: 10px;
       }
-      td {
-        width:120px;
-        text-align: center;
+
+      /* 각 섹션 (Device, Motion, Vision) */
+      .section {
+          margin-bottom: 15px;
+          border-top: 1px solid #eee;
+          padding-top: 10px;
       }
-      table,td {
-        border:3px solid black;
-        border-radius: 10px;
+      .section:first-child {
+          border-top: none;
+          padding-top: 0;
       }
+
+      /* 섹션 제목 */
+      h3 {
+          font-size: 1em;
+          text-align: center;
+          margin: 0 0 10px 0;
+          padding: 5px;
+          background-color: #f7f7f7;
+          border-radius: 4px;
+      }
+
+      /* 라벨과 입력 필드가 있는 행 (Flexbox 사용) */
+      .control-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+      }
+
+      .topic {
+          font-weight: bold;
+          width: 70px; /* 라벨 너비 고정으로 정렬 효과 */
+          padding-right: 10px;
+          flex-shrink: 0;
+      }
+
+      /* 입력 필드 스타일 */
+      input[type="text"] {
+          flex-grow: 1; /* 남은 공간 모두 차지 */
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+      }
+
+      /* 버튼 공통 스타일 */
       button {
-        /*border: 1px solid black;*/
-        border:none;
-        border-radius: 12px;
-        width:100%;
-        font-weight: bolder;
+          padding: 10px;
+          font-size: 1.2em;
+          border: 1px solid #aaa;
+          background-color: #e9e9e9;
+          border-radius: 4px;
+          cursor: pointer;
       }
       button:hover {
-	      box-shadow: inset 0 0 0 2em rgba(0, 0, 0, 0.05);
+          background-color: #ddd;
       }
-      input {
-        width:97%;
-        height:100%;
-        border:none;
-        border-radius: 12px;
+
+      /* Motion 및 Vision 버튼 그리드 (CSS Grid 사용) */
+      .motion-grid, .vision-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr; /* 3개의 동일한 너비의 열 */
+          gap: 5px; /* 버튼 사이 간격 */
+          margin-top: 10px;
       }
-      img {
-        width:100%;
-        border:none;
-        border-radius: 12px;
+
+      /* 3개 열을 모두 차지하는 버튼 스타일 */
+      .span-3 {
+          grid-column: 1 / -1; /* 1번 열에서 마지막 열까지 확장 */
       }
-      .symbol {
-        font-size:x-large;
+
+      /* Vision 이미지 */
+      #v_image {
+          display: block;
+          width: 100%;
+          height: 240px; /* 이미지 높이 예시 */
+          background-color: #222;
+          border-radius: 4px;
+          margin-bottom: 10px;
       }
-      .topic {
-        font-weight: bolder;
-        background-color: beige;
+
+      /* 정보 표시 영역 */
+      .info-display, .value-display {
+          min-height: 20px;
+          padding: 5px;
+          background-color: #f9f9f9;
+          border: 1px solid #eee;
+          border-radius: 4px;
+          margin-bottom: 10px;
       }
     </style>
   </head>
   <body>
-    <table>
-      <tr>
-        <td class="topic" colspan="3">Device</td>
-      </tr>
-      <tr>
-        <td colspan="3"><span class="info" id="d_info"></span></td>
-      </tr>
-      <tr>
-        <td class="topic">oled</td>
-        <td colspan="2"><input type="text" id="d_oled_in" placeholder="Hello World" /></td>
-      </tr>
-      <tr>
-        <td class="topic">led</td>
-        <td colspan="2"><input type="text" id="d_led_in" placeholder="0,0,0,0,0,0" /></td>
-      </tr>
-      <tr>
-        <td class="topic" colspan="3">Motion</td>
-      </tr>
-      <tr>
-        <td colspan="3"><button id="m_forward_bt"><span class="symbol">▲</span></button></td>
-      </tr>
-      <tr>
-        <td><button id="m_left_bt"><span class="symbol">◄</span></button></td>
-        <td><button id="m_stop_bt"><span class="symbol">◼</span></button></td>
-        <td><button id="m_right_bt"><span class="symbol">►</span></button></td>
-      </tr>
-      <tr>
-        <td colspan="3"><button id="m_backward_bt"><span class="symbol">▼</span></button></td>
-      </tr>
-      <tr>
-        <td class="topic" colspan="3">Vision</td>
-      </tr>
-      <tr>
-        <td colspan="3"><img id="v_image"></img></td>
-      </tr>
-      <tr>
-        <td class="topic">position</td>
-        <td colspan="2"><span id="mh_value"></span></td>
-      </tr>
-      <tr>
-        <td class="topic">detect:</td>
-        <td colspan="2"><span id="v_result"></span></td>
-      </tr>
-      <tr>
-        <td colspan="3"><button id="mh_up_bt"><span class="symbol">⇧</span></button></td>
-      </tr>
-      <tr>
-        <td><button id="mh_left_bt"><span class="symbol">⇦</span></button></td>
-        <td><button id="mh_down_bt"><span class="symbol">⇩</span></button></td>
-        <td><button id="mh_right_bt"><span class="symbol">⇨</span></button></td>
-      </tr>
-    </table>
+
+  <div class="control-panel">
+      <div class="section">
+          <h3>Device</h3>
+          <div class="info-display"><span class="info" id="d_info"></span></div>
+          <div class="control-row">
+              <label for="d_tts" class="topic">tts</label>
+              <input type="text" id="d_tts" placeholder="안녕하세요." />
+          </div>
+          <div class="control-row">
+              <label for="d_oled_in" class="topic">oled</label>
+              <input type="text" id="d_oled_in" placeholder="Hello World" />
+          </div>
+          <div class="control-row">
+              <label for="d_led_in" class="topic">led</label>
+              <input type="text" id="d_led_in" placeholder="0,0,0,0,0,0" />
+          </div>
+      </div>
+
+      <div class="section">
+          <h3>Motion</h3>
+          <div class="motion-grid">
+              <button id="m_forward_bt" class="span-3"><span class="symbol">▲</span></button>
+              <button id="m_left_bt"><span class="symbol">◄</span></button>
+              <button id="m_stop_bt"><span class="symbol">◼</span></button>
+              <button id="m_right_bt"><span class="symbol">►</span></button>
+              <button id="m_backward_bt" class="span-3"><span class="symbol">▼</span></button>
+          </div>
+      </div>
+
+      <div class="section">
+          <h3>Vision</h3>
+          <img id="v_image" alt="Vision stream">
+          <div class="control-row">
+              <span class="topic">position</span>
+              <span id="mh_value" class="value-display"></span>
+          </div>
+          <div class="control-row">
+              <span class="topic">detect</span>
+              <span id="v_result" class="value-display"></span>
+          </div>
+          <div class="vision-grid">
+              <button id="mh_up_bt" class="span-3"><span class="symbol">⇧</span></button>
+              <button id="mh_left_bt"><span class="symbol">⇦</span></button>
+              <button id="mh_down_bt"><span class="symbol">⇩</span></button>
+              <button id="mh_right_bt"><span class="symbol">⇨</span></button>
+          </div>
+      </div>
+  </div>
+
   </body>
  </html>

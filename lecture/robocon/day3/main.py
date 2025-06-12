@@ -13,6 +13,8 @@ from openpibo.motion import Motion
 from openpibo.device import Device
 from openpibo.oled import Oled
 from openpibo.vision import Camera,Detect
+from openpibo.speech import Speech
+from openpibo.audio import Audio
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -25,6 +27,12 @@ g_system = {"battery":"-", "plug":"-", "pir":"-", "touch":"-", "button":"-"}
 @app.get("/", response_class=HTMLResponse)
 async def main(request: Request):
   return templates.TemplateResponse("index.html", {"request":request})
+
+# speech
+@app.sio.on('tts')
+async def tts(sid, string=None):
+  speech.tts(string, 'tts.mp3', 'espeak')
+  audio.play('tts.mp3', 80)
 
 # motion
 @app.sio.on('set_motion')
@@ -110,7 +118,9 @@ def vloop():
 
 @app.on_event("startup")
 async def startup_event():
-  global motion,oled,device,camera,detect,queue
+  global speech,audio,motion,oled,device,camera,detect,queue
+  speech = Speech()
+  audio = Audio()
   motion = Motion()
   oled = Oled()
   device = Device()
@@ -127,4 +137,4 @@ async def startup_event():
   Thread(name='dloop', target=dloop, args=(), daemon=True).start()
 
 if __name__ == '__main__':
-  uvicorn.run("main:app", host="0.0.0.0", port=8080)
+  uvicorn.run("main:app", host="0.0.0.0", port=55555)
